@@ -56,9 +56,9 @@ Removed the unused dependency since:
 
 * It wasn’t used in the execution path
 * It blocked server startup
-* It added external instability
+* It introduced unnecessary instability
 
-This aligns with production debugging practices where unused dependencies are pruned for reliability.
+This aligns with production debugging practices where unused dependencies are pruned.
 
 ---
 
@@ -108,7 +108,7 @@ Uploaded PDF path wasn’t passed into Crew inputs.
 crew.kickoff({"query": query, "file_path": file_path})
 ```
 
-Enabled end-to-end document analysis.
+Enabled full end-to-end document analysis.
 
 ---
 
@@ -173,7 +173,7 @@ pip install -r requirements.txt
 
 ### 4️⃣ Add Environment Variables
 
-Create `.env` file:
+Create a `.env` file:
 
 ```
 OPENAI_API_KEY=your_api_key
@@ -198,7 +198,7 @@ uvicorn main:app --reload
 
 ## 🧪 Testing
 
-Upload any PDF via Swagger UI to generate AI-powered financial insights.
+Upload any financial PDF via Swagger UI to generate AI-powered insights.
 
 ---
 
@@ -210,10 +210,79 @@ During testing, the system returned:
 
 This confirms:
 
-* Successful end-to-end execution
+* Successful end-to-end pipeline execution
 * Proper LLM integration
 
 The limitation is billing-related, not functional.
+
+---
+
+## 📡 API Documentation
+
+### Base URL
+
+```
+http://127.0.0.1:8000
+```
+
+---
+
+### 1️⃣ Health Check
+
+**GET /**
+Returns server status.
+
+**Response**
+
+```json
+{
+  "message": "Financial Document Analyzer API is running"
+}
+```
+
+---
+
+### 2️⃣ Analyze Financial Document
+
+**POST /analyze**
+
+Upload a financial PDF and receive AI-powered financial insights.
+
+**Form Data**
+
+* `file` → Financial document (PDF)
+* `query` *(optional)* → Custom analysis prompt
+
+If no query is provided, a default financial analysis is performed.
+
+---
+
+**Example Response**
+
+```json
+{
+  "status": "success",
+  "query": "Analyze this financial document",
+  "analysis": "AI-generated financial insights...",
+  "file_processed": "uploaded_file.pdf"
+}
+```
+
+---
+
+### 📘 Interactive API Docs
+
+Swagger UI available at:
+
+```
+http://127.0.0.1:8000/docs
+```
+
+Provides:
+
+* Live API testing
+* Request/response schemas
+* File upload interface
 
 ---
 
@@ -232,54 +301,6 @@ FastAPI → CrewAI Agents → Tools → LLM → JSON Response
 5. API returns JSON response
 
 ---
-📡 API Documentation
-Base URL
-http://127.0.0.1:8000
-1️⃣ Health Check
-
-GET /
-Returns server status.
-
-Response
-
-{
-  "message": "Financial Document Analyzer API is running"
-}
-2️⃣ Analyze Financial Document
-
-POST /analyze
-
-Upload a financial PDF and receive AI-powered financial insights.
-
-Form Data
-
-file → Financial document (PDF)
-
-query (optional) → Custom analysis prompt
-
-If no query is provided, a default financial analysis is performed.
-
-Example Response
-
-{
-  "status": "success",
-  "query": "Analyze this financial document",
-  "analysis": "AI-generated financial insights...",
-  "file_processed": "uploaded_file.pdf"
-}
-📘 Interactive API Docs
-
-Swagger UI is automatically available at:
-
-http://127.0.0.1:8000/docs
-
-This provides:
-
-Live API testing
-
-Request/response schemas
-
-File upload interface
 
 ## 🚀 Future Improvements
 
