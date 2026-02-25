@@ -232,6 +232,54 @@ FastAPI → CrewAI Agents → Tools → LLM → JSON Response
 5. API returns JSON response
 
 ---
+📡 API Documentation
+Base URL
+http://127.0.0.1:8000
+1️⃣ Health Check
+
+GET /
+Returns server status.
+
+Response
+
+{
+  "message": "Financial Document Analyzer API is running"
+}
+2️⃣ Analyze Financial Document
+
+POST /analyze
+
+Upload a financial PDF and receive AI-powered financial insights.
+
+Form Data
+
+file → Financial document (PDF)
+
+query (optional) → Custom analysis prompt
+
+If no query is provided, a default financial analysis is performed.
+
+Example Response
+
+{
+  "status": "success",
+  "query": "Analyze this financial document",
+  "analysis": "AI-generated financial insights...",
+  "file_processed": "uploaded_file.pdf"
+}
+📘 Interactive API Docs
+
+Swagger UI is automatically available at:
+
+http://127.0.0.1:8000/docs
+
+This provides:
+
+Live API testing
+
+Request/response schemas
+
+File upload interface
 
 ## 🚀 Future Improvements
 
