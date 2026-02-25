@@ -194,7 +194,7 @@ uvicorn main:app --reload
 
 ### API Running Successfully
 
-!swagger-ui.png
+![Swagger UI](swagger-ui.png)
 
 > Swagger UI showing working FastAPI endpoints
 
