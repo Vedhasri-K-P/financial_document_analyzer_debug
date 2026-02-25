@@ -42,23 +42,21 @@ This submission focuses on **systematic debugging, safety alignment, and product
 from crewai import Agent
 ```
 
-Ensured compatibility with latest CrewAI API structure.
+Ensured compatibility with latest CrewAI API.
 
 ---
 
 ### 2️⃣ Broken External Dependency
 
 **Issue:**
-The project depended on `crewai_tools` (SerperDevTool), causing runtime failures.
+Project depended on `crewai_tools` (SerperDevTool), causing runtime failures.
 
 **Fix:**
-Removed the unused dependency since:
+Removed the unused dependency because:
 
 * It wasn’t used in the execution path
 * It blocked server startup
-* It introduced unnecessary instability
-
-This aligns with production debugging practices where unused dependencies are pruned.
+* It added instability
 
 ---
 
@@ -75,9 +73,9 @@ Original prompts encouraged:
 Rewrote prompts to enforce:
 
 * Document-grounded reasoning
-* Financial safety and clarity
+* Financial safety
 * Structured outputs
-* Explicit disclaimers
+* Clear disclaimers
 
 ---
 
@@ -91,7 +89,7 @@ Rewrote prompts to enforce:
 
 **Fixes:**
 
-* Converted tools to synchronous CrewAI-compatible format
+* Converted tools to synchronous format
 * Replaced loaders with `PdfReader`
 * Added safe error handling
 
@@ -108,13 +106,13 @@ Uploaded PDF path wasn’t passed into Crew inputs.
 crew.kickoff({"query": query, "file_path": file_path})
 ```
 
-Enabled full end-to-end document analysis.
+Enabled full end-to-end analysis.
 
 ---
 
 ### 6️⃣ Import Graph Stabilization
 
-Cleaned dangling imports after dependency removal to prevent module load failures.
+Removed dangling imports after dependency cleanup.
 
 ---
 
@@ -126,14 +124,10 @@ Cleaned dangling imports after dependency removal to prevent module load failure
 * Enforced grounded responses
 * Added financial disclaimers
 
----
-
 ### ✅ Dependency Stabilization
 
-* Removed fragile external tools
+* Removed fragile tools
 * Reduced runtime failure surface
-
----
 
 ### ✅ Improved Error Handling
 
@@ -149,7 +143,7 @@ Cleaned dangling imports after dependency removal to prevent module load failure
 
 ```bash
 git clone <your-repo-link>
-cd financial-document-analyzer-debug
+cd financial_document_analyzer_debug
 ```
 
 ---
@@ -198,7 +192,11 @@ uvicorn main:app --reload
 
 ## 🧪 Testing
 
-Upload any financial PDF via Swagger UI to generate AI-powered insights.
+### API Running Successfully
+
+![Swagger UI](assets/swagger-ui.png)
+
+> Swagger UI showing working FastAPI endpoints
 
 ---
 
@@ -210,8 +208,8 @@ During testing, the system returned:
 
 This confirms:
 
-* Successful end-to-end pipeline execution
-* Proper LLM integration
+* End-to-end pipeline works
+* LLM integration is correct
 
 The limitation is billing-related, not functional.
 
@@ -246,43 +244,22 @@ Returns server status.
 
 **POST /analyze**
 
-Upload a financial PDF and receive AI-powered financial insights.
+Upload a financial PDF and receive AI-powered insights.
 
 **Form Data**
 
 * `file` → Financial document (PDF)
 * `query` *(optional)* → Custom analysis prompt
 
-If no query is provided, a default financial analysis is performed.
-
 ---
 
-**Example Response**
+### Swagger Docs
 
-```json
-{
-  "status": "success",
-  "query": "Analyze this financial document",
-  "analysis": "AI-generated financial insights...",
-  "file_processed": "uploaded_file.pdf"
-}
-```
-
----
-
-### 📘 Interactive API Docs
-
-Swagger UI available at:
+Interactive API docs available at:
 
 ```
 http://127.0.0.1:8000/docs
 ```
-
-Provides:
-
-* Live API testing
-* Request/response schemas
-* File upload interface
 
 ---
 
@@ -297,7 +274,7 @@ FastAPI → CrewAI Agents → Tools → LLM → JSON Response
 1. User uploads financial document
 2. PDF parsed via custom tool
 3. CrewAI agents analyze content
-4. LLM generates structured insights
+4. LLM generates insights
 5. API returns JSON response
 
 ---
@@ -305,7 +282,7 @@ FastAPI → CrewAI Agents → Tools → LLM → JSON Response
 ## 🚀 Future Improvements
 
 * Database integration for result storage
-* Async queue workers (Celery/Redis)
+* Async workers (Celery/Redis)
 * Result caching
 * Observability & logging
 
